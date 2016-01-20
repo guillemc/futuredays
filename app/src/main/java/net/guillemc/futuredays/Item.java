@@ -1,10 +1,7 @@
 package net.guillemc.futuredays;
 
-import android.util.Log;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.joda.time.LocalDate;
+import org.joda.time.format.ISODateTimeFormat;
 
 public class Item {
     public static String TAG = "Item";
@@ -12,18 +9,18 @@ public class Item {
     private Long mId;
     private String mTitle;
     private String mDetails;
-    private Date mDate;
+    private LocalDate mDate;
     private boolean mAutodelete;
     private int mLevel;
 
     public Item(long id) {
         mId = id;
-        mDate = new Date();
+        mDate = new LocalDate();
     }
 
     public Item() {
         mId = null;
-        mDate = new Date();
+        mDate = new LocalDate();
     }
 
     public boolean isAutodelete() {
@@ -34,20 +31,20 @@ public class Item {
         mAutodelete = autodelete;
     }
 
-    public Date getDate() {
+    public void setAutodelete(int autodelete) {
+        mAutodelete = autodelete != 0;
+    }
+
+    public LocalDate getDate() {
         return mDate;
     }
 
-    public String getDateString() {
-        return dateToString(mDate);
-    }
-
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         mDate = date;
     }
 
     public void setDate(String d) {
-        mDate = stringToDate(d);
+        mDate = ISODateTimeFormat.date().parseLocalDate(d);
     }
 
     public String getDetails() {
@@ -81,20 +78,5 @@ public class Item {
 
     public void setLevel(int level) {
         mLevel = level;
-    }
-
-    public static String dateToString(Date d) {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        return df.format(d);
-    }
-    public static Date stringToDate(String s) {
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-        Date d = new Date();
-        try {
-            d = fmt.parse(s);
-        } catch (ParseException e) {
-            Log.e(TAG, String.format("Can't parse '%s' into date: ", s), e);
-        }
-        return d;
     }
 }

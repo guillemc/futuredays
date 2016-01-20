@@ -2,13 +2,8 @@ package net.guillemc.futuredays.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
-import android.util.Log;
 
 import net.guillemc.futuredays.Item;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ItemCursorWrapper extends CursorWrapper {
 
@@ -30,7 +25,7 @@ public class ItemCursorWrapper extends CursorWrapper {
         item.setDate(date);
         item.setTitle(title);
         item.setDetails(details);
-        item.setAutodelete(autoDel != 0);
+        item.setAutodelete(autoDel);
         item.setLevel(level);
         return item;
     }

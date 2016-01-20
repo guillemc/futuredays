@@ -10,8 +10,9 @@ import net.guillemc.futuredays.database.ItemBaseHelper;
 import net.guillemc.futuredays.database.ItemCursorWrapper;
 import net.guillemc.futuredays.database.ItemSchema;
 
+import org.joda.time.LocalDate;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ItemManager {
@@ -38,7 +39,7 @@ public class ItemManager {
     public List<Item> getItems() {
         List<Item> items = new ArrayList<>();
         String where = ItemSchema.DATE + " >= ?";
-        String[] params = { Item.dateToString(new Date()) };
+        String[] params = { new LocalDate().toString() };
         ItemCursorWrapper cursor = new ItemCursorWrapper(mDatabase.query(ItemSchema.TBL,
                 null,   // all columns
                 where,  // where
@@ -87,7 +88,7 @@ public class ItemManager {
     }
 
     public void deleteOldItems() {
-        String[] params = { Item.dateToString(new Date()) };
+        String[] params = { new LocalDate().toString() };
         mDatabase.delete(ItemSchema.TBL, String.format("%s = 1 AND %s < ?", ItemSchema.AUTODEL, ItemSchema.DATE), params);
     }
 
