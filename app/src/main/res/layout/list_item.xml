@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/list_item_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:textStyle="bold"
+        tools:text="22/12/2017"/>
+    <TextView
+        android:id="@+id/list_item_title"
+        android:layout_toRightOf="@id/list_item_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:textStyle="bold"
+        tools:text="This is the item's title"/>
+
+    <TextView
+        android:id="@+id/list_item_reldate"
+        android:layout_below="@id/list_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        tools:text="Tomorrow"/>
+
+</RelativeLayout>
