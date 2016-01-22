@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/list_item_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:textStyle="bold"
-        tools:text="22/12/2017"/>
+    <RelativeLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/list_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            tools:text="22/12/2017"/>
+        <TextView
+            android:id="@+id/list_item_reldate"
+            android:layout_below="@id/list_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:layout_centerHorizontal="true"
+            tools:text="Tomorrow"/>
+
+    </RelativeLayout>
     <TextView
         android:id="@+id/list_item_title"
         android:layout_toRightOf="@id/list_item_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:textStyle="bold"
-        tools:text="This is the item's title"/>
+        tools:text="This is the item's title. It could be somewhat long..."/>
 
-    <TextView
-        android:id="@+id/list_item_reldate"
-        android:layout_below="@id/list_item_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        tools:text="Tomorrow"/>
-
-</RelativeLayout>
+</LinearLayout>

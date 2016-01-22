@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import net.guillemc.futuredays.database.ItemBaseHelper;
+import net.guillemc.futuredays.database.DatabaseHelper;
 import net.guillemc.futuredays.database.ItemCursorWrapper;
 import net.guillemc.futuredays.database.ItemSchema;
 
@@ -33,7 +33,7 @@ public class ItemManager {
 
     private ItemManager(Context ctx) {
         mContext = ctx.getApplicationContext();
-        mDatabase = new ItemBaseHelper(mContext).getWritableDatabase();
+        mDatabase = new DatabaseHelper(mContext).getWritableDatabase();
     }
 
     public List<Item> getItems() {

@@ -91,7 +91,16 @@ public class ListFragment extends Fragment {
             mItem = item;
             mTitleView.setText(mItem.getTitle());
             mDateView.setText(mItem.getDate().toString());
-            mRelDateView.setText(mItem.getDate().toString());
+            String relDate;
+            int days = mItem.getDayDiff();
+            if (days == 0) {
+                relDate = getResources().getString(R.string.today);
+            } else if (days == 1) {
+                relDate = getResources().getString(R.string.tomorrow);
+            } else {
+                relDate = String.format(getResources().getString(R.string.num_days), days > 0 ? "+" + days : days);
+            }
+            mRelDateView.setText(relDate);
         }
 
         public void onClick(View v) {

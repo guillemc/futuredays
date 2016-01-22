@@ -1,5 +1,6 @@
 package net.guillemc.futuredays;
 
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.format.ISODateTimeFormat;
 
@@ -78,5 +79,9 @@ public class Item {
 
     public void setLevel(int level) {
         mLevel = level;
+    }
+
+    public int getDayDiff() {
+        return Days.daysBetween(new LocalDate(), mDate).getDays();
     }
 }

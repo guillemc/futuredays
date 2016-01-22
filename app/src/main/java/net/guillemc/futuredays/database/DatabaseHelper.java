@@ -5,12 +5,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class ItemBaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
     private static final String DBNAME = "items.db";
 
-    public ItemBaseHelper(Context context) {
+    public DatabaseHelper(Context context) {
         super(context, DBNAME, null, VERSION);
     }
 
