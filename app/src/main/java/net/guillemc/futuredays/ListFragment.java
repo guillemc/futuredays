@@ -1,6 +1,7 @@
 package net.guillemc.futuredays;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,27 @@ public class ListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private View mEmptyView;
     private ItemAdapter mAdapter;
+
+    private Callbacks mCallbacks; // this corresponds to the hosting activity
+
+    /*
+     * The hosting activity needs to implement this interface
+     */
+    public interface Callbacks {
+        void onListItemSelect(Item item);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallbacks = (Callbacks) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
 
     @Nullable
     @Override
@@ -104,7 +126,7 @@ public class ListFragment extends Fragment {
         }
 
         public void onClick(View v) {
-
+            mCallbacks.onListItemSelect(mItem);
         }
     }
 

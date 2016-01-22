@@ -87,6 +87,14 @@ public class ItemManager {
         }
     }
 
+    public void saveItem(Item i) {
+        if (i.getId() == null) {
+            createItem(i);
+        } else {
+            updateItem(i);
+        }
+    }
+
     public void deleteOldItems() {
         String[] params = { new LocalDate().toString() };
         mDatabase.delete(ItemSchema.TBL, String.format("%s = 1 AND %s < ?", ItemSchema.AUTODEL, ItemSchema.DATE), params);

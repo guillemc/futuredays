@@ -7,4 +7,6 @@
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="num_days">%1s days</string>
+    <string name="item_title_label">Title</string>
+    <string name="item_title_hint">Please enter a title</string>
 </resources>
