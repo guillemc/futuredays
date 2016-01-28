@@ -112,7 +112,7 @@ public class ListFragment extends Fragment {
         public void bindItem(Item item) {
             mItem = item;
             mTitleView.setText(mItem.getTitle());
-            mDateView.setText(mItem.getDate().toString());
+            mDateView.setText(mItem.getLocalizedDate());
             String relDate;
             int days = mItem.getDayDiff();
             if (days == 0) {

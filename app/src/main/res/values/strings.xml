@@ -9,4 +9,8 @@
     <string name="num_days">%1s days</string>
     <string name="item_title_label">Title</string>
     <string name="item_title_hint">Please enter a title</string>
+    <string name="item_details_hint">Enter the details</string>
+    <string name="item_autodelete_label">Automatically delete after date</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_save">Save</string>
 </resources>

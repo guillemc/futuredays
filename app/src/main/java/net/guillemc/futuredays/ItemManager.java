@@ -10,17 +10,17 @@ import net.guillemc.futuredays.database.DatabaseHelper;
 import net.guillemc.futuredays.database.ItemCursorWrapper;
 import net.guillemc.futuredays.database.ItemSchema;
 
-import org.joda.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
+
+import hirondelle.date4j.DateTime;
 
 public class ItemManager {
     public static String TAG = "ItemManager";
 
     private static ItemManager sItemManager;
 
-    private Context mContext;
     private SQLiteDatabase mDatabase;
 
 
@@ -32,14 +32,12 @@ public class ItemManager {
     }
 
     private ItemManager(Context ctx) {
-        mContext = ctx.getApplicationContext();
-        mDatabase = new DatabaseHelper(mContext).getWritableDatabase();
+        mDatabase = new DatabaseHelper(ctx.getApplicationContext()).getWritableDatabase();
     }
 
     public List<Item> getItems() {
-        List<Item> items = new ArrayList<>();
         String where = ItemSchema.DATE + " >= ?";
-        String[] params = { new LocalDate().toString() };
+        String[] params = { DateTime.today(TimeZone.getDefault()).format("YYYY-MM-DD") };
         ItemCursorWrapper cursor = new ItemCursorWrapper(mDatabase.query(ItemSchema.TBL,
                 null,   // all columns
                 where,  // where
@@ -54,7 +52,7 @@ public class ItemManager {
     @Nullable
     public Item getItem(long id) {
         String where = "_id = ?";
-        String[] params = { new Long(id).toString() };
+        String[] params = {Long.toString(id)};
         ItemCursorWrapper cursor = new ItemCursorWrapper(mDatabase.query(ItemSchema.TBL,
                 null,
                 where,
@@ -67,7 +65,7 @@ public class ItemManager {
     }
 
     public void deleteItem(long id) {
-        String[] params = { new Long(id).toString() };
+        String[] params = {Long.toString(id)};
         mDatabase.delete(ItemSchema.TBL, "_id = ?", params);
     }
 
@@ -96,7 +94,7 @@ public class ItemManager {
     }
 
     public void deleteOldItems() {
-        String[] params = { new LocalDate().toString() };
+        String[] params = { DateTime.today(TimeZone.getDefault()).format("YYYY-MM-DD") };
         mDatabase.delete(ItemSchema.TBL, String.format("%s = 1 AND %s < ?", ItemSchema.AUTODEL, ItemSchema.DATE), params);
     }
 

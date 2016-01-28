@@ -1,8 +1,9 @@
 package net.guillemc.futuredays;
 
-import org.joda.time.Days;
-import org.joda.time.LocalDate;
-import org.joda.time.format.ISODateTimeFormat;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import hirondelle.date4j.DateTime;
 
 public class Item {
     public static String TAG = "Item";
@@ -10,18 +11,19 @@ public class Item {
     private Long mId;
     private String mTitle;
     private String mDetails;
-    private LocalDate mDate;
+    private DateTime mDate;
     private boolean mAutodelete;
     private int mLevel;
+    private static DateTime today;
 
     public Item(long id) {
+        this();
         mId = id;
-        mDate = new LocalDate();
     }
 
     public Item() {
-        mId = null;
-        mDate = new LocalDate();
+        today = DateTime.today(TimeZone.getDefault());
+        mDate = today;
     }
 
     public boolean isAutodelete() {
@@ -36,16 +38,25 @@ public class Item {
         mAutodelete = autodelete != 0;
     }
 
-    public LocalDate getDate() {
+    public DateTime getDate() {
         return mDate;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(DateTime date) {
         mDate = date;
     }
 
     public void setDate(String d) {
-        mDate = ISODateTimeFormat.date().parseLocalDate(d);
+        mDate = new DateTime(d);
+    }
+
+    public String getDate(String fmt) {
+        return mDate.format(fmt);
+    }
+
+    public String getLocalizedDate() {
+        String fmt = "WWW, DD MMM YYYY";
+        return mDate.format(fmt, Locale.getDefault());
     }
 
     public String getDetails() {
@@ -82,6 +93,6 @@ public class Item {
     }
 
     public int getDayDiff() {
-        return Days.daysBetween(new LocalDate(), mDate).getDays();
+        return today.numDaysFrom(mDate);
     }
 }
