@@ -14,13 +14,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import net.guillemc.futuredays.helpers.ConfirmFragment;
+import net.guillemc.futuredays.helpers.DatePickerFragment;
 
-public class ItemFragment extends Fragment {
+import hirondelle.date4j.DateTime;
+
+public class ItemFragment extends Fragment implements DatePickerFragment.OnDatePickedListener {
 
     public static final String TAG = "item_fragment";
     public static final String ARG_ITEM_ID = "item_id";
-
-    private static final String DIALOG_CONFIRM_DELETE = "DialogConfirmDelete";
 
     private Item mItem;
 
@@ -119,13 +120,38 @@ public class ItemFragment extends Fragment {
             }
         });
 
+        mDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerFragment f = DatePickerFragment.newInstance(mItem.getDate(), ItemFragment.this);
+                f.show(getActivity().getSupportFragmentManager(), "datePicker");
+            }
+        });
+
         return v;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("itemDate", mItem.getDate());
     }
 
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        Log.d(TAG, "onViewStateRestored : " + mTitle.getText());
+        if (savedInstanceState != null && savedInstanceState.containsKey("itemDate")) {
+            DateTime itemDate = (DateTime) savedInstanceState.getSerializable("itemDate");
+            mItem.setDate(itemDate);
+            mDate.setText(mItem.getLocalizedDate());
+        }
+        Log.d(TAG, "onViewStateRestored : " + mItem.getDate("YYYY-MM-DD"));
+    }
+
+    @Override
+    public void onDateSelected(DateTime date) {
+        mItem.setDate(date);
+        mDate.setText(mItem.getLocalizedDate());
     }
 
     private void confirmDelete() {
@@ -137,7 +163,7 @@ public class ItemFragment extends Fragment {
             }
         };
         ConfirmFragment dialog = ConfirmFragment.newInstance(R.string.confirm_delete, listener);
-        dialog.show(getActivity().getSupportFragmentManager(), DIALOG_CONFIRM_DELETE);
+        dialog.show(getActivity().getSupportFragmentManager(), "deleteConfirmation");
     }
 
     private void saveItem() {
