@@ -26,6 +26,10 @@ public class Item {
         mDate = today;
     }
 
+    public boolean isNew() {
+        return mId == null;
+    }
+
     public boolean isAutodelete() {
         return mAutodelete;
     }
@@ -94,5 +98,9 @@ public class Item {
 
     public int getDayDiff() {
         return today.numDaysFrom(mDate);
+    }
+
+    public String toString() {
+        return getLocalizedDate() + ": " + getTitle() + "\n" + getDetails();
     }
 }

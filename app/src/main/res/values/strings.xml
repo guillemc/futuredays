@@ -13,4 +13,6 @@
     <string name="item_autodelete_label">Automatically delete after date</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="confirm_delete">Delete item?</string>
 </resources>

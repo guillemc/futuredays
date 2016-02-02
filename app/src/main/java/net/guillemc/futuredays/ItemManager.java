@@ -69,6 +69,12 @@ public class ItemManager {
         mDatabase.delete(ItemSchema.TBL, "_id = ?", params);
     }
 
+    public void deleteItem(Item i) {
+        if (!i.isNew()) {
+            deleteItem(i.getId());
+        }
+    }
+
     public void updateItem(Item i) {
         ContentValues cv = ItemSchema.getContentValues(i);
         String[] params = { i.getId().toString() };
