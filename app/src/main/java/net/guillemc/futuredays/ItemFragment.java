@@ -45,14 +45,11 @@ public class ItemFragment extends Fragment implements DatePickerFragment.OnDateP
         void onCancel(Item item);
     }
 
-
     public static ItemFragment newInstance(Long itemId) {
         ItemFragment fragment = new ItemFragment();
-        if (itemId != null) {
-            Bundle args = new Bundle();
-            args.putSerializable(ARG_ITEM_ID, itemId);
-            fragment.setArguments(args);
-        }
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_ITEM_ID, itemId);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -65,8 +62,12 @@ public class ItemFragment extends Fragment implements DatePickerFragment.OnDateP
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Long itemId = null;
 
-        Long itemId = (Long) getArguments().getSerializable(ARG_ITEM_ID);
+        Bundle args = getArguments();
+        if (args != null && args.containsKey(ARG_ITEM_ID)) {
+            itemId = (Long) args.getSerializable(ARG_ITEM_ID);
+        }
 
         if (itemId != null) {
             ItemManager mgr = ItemManager.get(getActivity());

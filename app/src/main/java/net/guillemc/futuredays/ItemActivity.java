@@ -12,14 +12,20 @@ public class ItemActivity extends SingleFragmentActivity implements ItemFragment
 
     public static Intent newIntent(Context packageContext, Long itemId) {
         Intent intent = new Intent(packageContext, ItemActivity.class);
-        intent.putExtra(EXTRA_ITEM_ID, itemId);
+        if (itemId != null) {
+            intent.putExtra(EXTRA_ITEM_ID, itemId);
+        }
         return intent;
     }
 
     @Override
     protected Fragment createFragment() {
-        Long itemId = (Long) getIntent().getSerializableExtra(EXTRA_ITEM_ID);
-        return ItemFragment.newInstance(itemId);
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_ITEM_ID)) {
+            Long itemId = (Long) getIntent().getSerializableExtra(EXTRA_ITEM_ID);
+            return ItemFragment.newInstance(itemId);
+        }
+        return new ItemFragment();
     }
 
     @Override
