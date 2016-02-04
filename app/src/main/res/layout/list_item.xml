@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                app:contentPadding="8dp"
+                app:cardUseCompatPadding="true"
+    >
 
-    <RelativeLayout android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/list_item_title"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            style="@style/Base.TextAppearance.AppCompat.Subhead"
+            tools:text="This is the item's title. It could be somewhat long..."/>
+
+    <LinearLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                  android:layout_weight="0"
+                  android:layout_marginLeft="16dp">
         <TextView
             android:id="@+id/list_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="2dp"
+            android:padding="4dp"
             android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            tools:text="22/12/2017"/>
+            tools:text="22/12/2017"
+            android:layout_gravity="right"/>
         <TextView
             android:id="@+id/list_item_reldate"
-            android:layout_below="@id/list_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="2dp"
-            android:layout_centerHorizontal="true"
-            tools:text="Tomorrow"/>
+            android:padding="4dp"
+            tools:text="Tomorrow"
+            android:layout_gravity="center"
+            />
 
-    </RelativeLayout>
-    <TextView
-        android:id="@+id/list_item_title"
-        android:layout_toRightOf="@id/list_item_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="4dp"
-        tools:text="This is the item's title. It could be somewhat long..."/>
 
-</LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
