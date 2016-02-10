@@ -35,6 +35,7 @@ public class ListFragment extends Fragment {
      */
     public interface Callbacks {
         void onListItemSelect(Item item);
+        void onAddNewPressed();
     }
 
     public static ListFragment newInstance(boolean future) {
@@ -82,7 +83,7 @@ public class ListFragment extends Fragment {
         addItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addItem();
+                mCallbacks.onAddNewPressed();
             }
         });
 
@@ -99,8 +100,7 @@ public class ListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_add_item:
-                Intent intent = ItemActivity.newIntent(getActivity(), null);
-                startActivity(intent);
+                mCallbacks.onAddNewPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -114,6 +114,9 @@ public class ListFragment extends Fragment {
 
     private void updateUI() {
         ItemManager mgr = ItemManager.get(getActivity());
+        if (!mFuture) {
+            mgr.cleanUp();
+        }
         List<Item> items = mgr.getItems(mFuture);
 
         boolean isEmpty = items.size() <= 0;
@@ -142,10 +145,6 @@ public class ListFragment extends Fragment {
             mAdapter.setItems(items);
             mAdapter.notifyDataSetChanged();
         }
-    }
-
-    private void addItem() {
-
     }
 
 

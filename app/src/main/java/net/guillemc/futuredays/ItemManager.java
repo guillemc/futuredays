@@ -11,6 +11,7 @@ import net.guillemc.futuredays.database.ItemCursorWrapper;
 import net.guillemc.futuredays.database.ItemSchema;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -22,6 +23,8 @@ public class ItemManager {
     private static ItemManager sItemManager;
 
     private SQLiteDatabase mDatabase;
+
+    private long mLastCleanup = 0;
 
 
     public static ItemManager get(Context ctx) {
@@ -106,6 +109,17 @@ public class ItemManager {
     public void deleteOldItems() {
         String[] params = { DateTime.today(TimeZone.getDefault()).format("YYYY-MM-DD") };
         mDatabase.delete(ItemSchema.TBL, String.format("%s = 1 AND %s < ?", ItemSchema.AUTODEL, ItemSchema.DATE), params);
+    }
+
+    public void cleanUp() {
+        Log.d(TAG, "cleanUp() called");
+        Date d = new Date();
+        long m = d.getTime();
+        if (m - mLastCleanup > 3600*1000) {  // every hour at most
+            Log.d(TAG, "Deleting old items");
+            deleteOldItems();
+            mLastCleanup = m;
+        }
     }
 
     private List<Item> getList(ItemCursorWrapper cursor) {

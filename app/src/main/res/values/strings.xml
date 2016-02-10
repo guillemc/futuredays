@@ -16,4 +16,6 @@
     <string name="action_save">Save</string>
     <string name="action_delete">Delete</string>
     <string name="confirm_delete">Delete item?</string>
+    <string name="future_items">Upcoming</string>
+    <string name="past_items">Past</string>
 </resources>
