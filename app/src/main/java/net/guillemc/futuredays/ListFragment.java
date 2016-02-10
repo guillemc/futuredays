@@ -23,6 +23,10 @@ public class ListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private View mEmptyView;
     private ItemAdapter mAdapter;
+    private boolean mFuture = true;
+
+    public static final String ARG_FUTURE = "future";
+
 
     private Callbacks mCallbacks; // this corresponds to the hosting activity
 
@@ -31,6 +35,14 @@ public class ListFragment extends Fragment {
      */
     public interface Callbacks {
         void onListItemSelect(Item item);
+    }
+
+    public static ListFragment newInstance(boolean future) {
+        ListFragment fragment = new ListFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(ARG_FUTURE, future);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -49,6 +61,11 @@ public class ListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        Bundle args = getArguments();
+        if (args != null && args.containsKey(ARG_FUTURE)) {
+            mFuture = args.getBoolean(ARG_FUTURE);
+        }
     }
 
     @Nullable
@@ -97,11 +114,26 @@ public class ListFragment extends Fragment {
 
     private void updateUI() {
         ItemManager mgr = ItemManager.get(getActivity());
-        List<Item> items = mgr.getItems();
+        List<Item> items = mgr.getItems(mFuture);
 
         boolean isEmpty = items.size() <= 0;
-        mRecyclerView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
-        mEmptyView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+
+        if (isEmpty) {
+            mEmptyView.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+            TextView tv = (TextView) mEmptyView.findViewById(R.id.empty_text);
+            Button b = (Button) mEmptyView.findViewById(R.id.add_item);
+            if (mFuture) {
+                tv.setText(getResources().getText(R.string.empty_list));
+                b.setVisibility(View.VISIBLE);
+            } else {
+                tv.setText(getResources().getText(R.string.empty_list_past));
+                b.setVisibility(View.GONE);
+            }
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mEmptyView.setVisibility(View.GONE);
+        }
 
         if (mAdapter == null) {
             mAdapter = new ItemAdapter(items);

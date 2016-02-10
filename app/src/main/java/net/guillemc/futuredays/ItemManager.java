@@ -35,8 +35,8 @@ public class ItemManager {
         mDatabase = new DatabaseHelper(ctx.getApplicationContext()).getWritableDatabase();
     }
 
-    public List<Item> getItems() {
-        String where = ItemSchema.DATE + " >= ?";
+    public List<Item> getItems(boolean future) {
+        String where = ItemSchema.DATE + (future ? " >= ?" : " < ?");
         String[] params = { DateTime.today(TimeZone.getDefault()).format("YYYY-MM-DD") };
         ItemCursorWrapper cursor = new ItemCursorWrapper(mDatabase.query(ItemSchema.TBL,
                 null,   // all columns
@@ -47,6 +47,10 @@ public class ItemManager {
                 ItemSchema.DATE + ", " + ItemSchema.LEVEL + " DESC" // orderBy
         ));
         return getList(cursor);
+    }
+
+    public List<Item> getItems() {
+        return getItems(true);
     }
 
     @Nullable

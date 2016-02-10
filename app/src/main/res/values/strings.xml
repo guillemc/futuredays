@@ -4,6 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="new_item">Add item</string>
     <string name="empty_list">There are no items</string>
+    <string name="empty_list_past">There are no past items</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="num_days">%1s days</string>

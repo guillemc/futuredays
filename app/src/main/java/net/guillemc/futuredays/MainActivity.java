@@ -9,7 +9,7 @@ public class MainActivity extends SingleFragmentActivity implements ListFragment
 
     @Override
     protected Fragment createFragment() {
-        return new ListFragment();
+        return ListFragment.newInstance(true);
     }
 
     @Override
