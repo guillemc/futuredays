@@ -23,15 +23,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         ", " + ItemSchema.AUTODEL + " INTEGER" +
                         ", " + ItemSchema.LEVEL + " INTEGER" +
                         ")");
-        db.execSQL("INSERT INTO " + ItemSchema.TBL + "(" + ItemSchema.DATE +
-                        ", " + ItemSchema.TITLE +
-                        ", " + ItemSchema.DETAILS +
-                        ", " + ItemSchema.AUTODEL +
-                        ", " + ItemSchema.LEVEL +
-                        ") VALUES ('2016-04-01', 'Dentist', '10:30 - keep calm', 1, 1), " +
-                                "('2016-05-12', 'Change toothbrush', 'preferably a yellow one', 1, 1), " +
-                                "('2016-06-04', 'Meeting with K', 'bring a gun', 1, 1)"
-        );
     }
 
     @Override
