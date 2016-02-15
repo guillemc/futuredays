@@ -13,18 +13,20 @@ import android.view.ViewGroup;
 
 public class PagerFragment extends Fragment {
 
+    ViewPager mPager;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tabs_and_pager, container, false);
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        viewPager.setAdapter(new MyFragmentPagerAdapter(getActivity().getSupportFragmentManager()));
+        mPager = (ViewPager) view.findViewById(R.id.viewpager);
+        mPager.setAdapter(new MyFragmentPagerAdapter(getActivity().getSupportFragmentManager()));
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(mPager);
 
         return view;
     }
@@ -50,6 +52,10 @@ public class PagerFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             return getResources().getString(position == 0 ? R.string.future_items : R.string.past_items);
         }
+    }
+
+    public void getCurrentItem() {
+        mPager.getCurrentItem();
     }
 
 }

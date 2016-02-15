@@ -18,4 +18,5 @@
     <string name="confirm_delete">Delete item?</string>
     <string name="future_items">Upcoming</string>
     <string name="past_items">Past</string>
+    <string name="item_saved">Item saved</string>
 </resources>

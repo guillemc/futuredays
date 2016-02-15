@@ -112,7 +112,7 @@ public class ListFragment extends Fragment {
         updateUI();
     }
 
-    private void updateUI() {
+    public void updateUI() {
         ItemManager mgr = ItemManager.get(getActivity());
         if (!mFuture) {
             mgr.cleanUp();
