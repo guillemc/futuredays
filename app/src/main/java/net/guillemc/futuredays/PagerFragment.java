@@ -13,7 +13,11 @@ import android.view.ViewGroup;
 
 public class PagerFragment extends Fragment {
 
-    ViewPager mPager;
+    private ViewPager mPager;
+
+    public ViewPager getViewPager() {
+        return mPager;
+    }
 
     @Nullable
     @Override

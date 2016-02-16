@@ -75,21 +75,26 @@ public class MainActivity extends AppCompatActivity
     }
 
     protected void updateListFragment() {
-        PagerFragment pager = (PagerFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.fragment_container);
+        FragmentManager fm = getSupportFragmentManager();
+        PagerFragment pager = (PagerFragment) fm.findFragmentById(R.id.fragment_container);
         if (pager != null) {
-            // get access to the current ListFragment being displayed, and update it
-            //list.updateUI();
+            // Get access to the current ListFragment being displayed, and update it.
+            // Hacky, as it relies on the internal naming used by ViewPager
+            // http://stackoverflow.com/questions/8785221/retrieve-a-fragment-from-a-viewpager
+            int current = pager.getViewPager().getCurrentItem();
+            String tag = "android:switcher:" + R.id.viewpager + ":" + current;
+            ListFragment list = (ListFragment) fm.findFragmentByTag(tag);
+            if (list != null) {
+                list.updateUI();
+            }
         }
     }
 
     protected void removeDetailFragment() {
-        ItemFragment detail = (ItemFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.detail_fragment_container);
+        FragmentManager fm = getSupportFragmentManager();
+        ItemFragment detail = (ItemFragment) fm.findFragmentById(R.id.detail_fragment_container);
         if (detail != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .remove(detail)
-                    .commit();
+            fm.beginTransaction().remove(detail).commit();
         }
     }
 }
